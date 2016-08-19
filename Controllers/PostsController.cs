@@ -61,6 +61,7 @@ namespace LandmarksBlog.Controllers
         }
 
         // GET: Posts/Edit/5
+        [Authorize(Roles ="Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,6 +81,8 @@ namespace LandmarksBlog.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
+
         public ActionResult Edit([Bind(Include = "Id,Title,Body,Date")] Post post)
         {
             if (ModelState.IsValid)
@@ -92,6 +95,8 @@ namespace LandmarksBlog.Controllers
         }
 
         // GET: Posts/Delete/5
+        [Authorize(Roles = "Administrator")]
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -109,6 +114,8 @@ namespace LandmarksBlog.Controllers
         // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
+
         public ActionResult DeleteConfirmed(int id)
         {
             Post post = db.Posts.Find(id);

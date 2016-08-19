@@ -10,7 +10,8 @@ namespace LandmarksBlog.Models
     {
         public Post()
         {
-            this.Date = DateTime.Now;
+            this.Date = DateTime.Now.Date;
+            this.Comments = new HashSet<Comment>();
         }
 
         [Key]
@@ -27,5 +28,7 @@ namespace LandmarksBlog.Models
         public DateTime Date { get; set; }
 
         public ApplicationUser Author { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }
