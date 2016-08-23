@@ -24,6 +24,10 @@
         <th>
             @Html.DisplayNameFor(model => model.Author)
         </th>
+        <th>
+            Action
+        </th>
+
         <th></th>
     </tr>
 
@@ -45,7 +49,7 @@
             }
             else
             {
-                <i>(няма автор)</i>
+                @:<i>(няма автор)</i>
             }
         </td>
         <td>

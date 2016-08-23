@@ -8,6 +8,7 @@ namespace LandmarksBlog.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using LandmarksBlog.Models;
 
     public sealed class DbMigrationConfig : DbMigrationsConfiguration<LandmarksBlog.Models.ApplicationDbContext>
     {
@@ -36,7 +37,7 @@ namespace LandmarksBlog.Migrations
             if (!context.Users.Any())
             {
                 var adminEmail = "neli@neli.com";
-                var adminUserName = adminEmail;
+                var adminUserName = "neli";
                 var adminFullName = "Neli Neli";
                 var adminPassword = "123";
                 string adminRole = "Administrator";

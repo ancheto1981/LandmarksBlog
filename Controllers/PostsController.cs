@@ -10,6 +10,7 @@ using LandmarksBlog.Models;
 
 namespace LandmarksBlog.Controllers
 {
+    [ValidateInput(false)]
     public class PostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -17,7 +18,8 @@ namespace LandmarksBlog.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            return View(db.Posts.ToList());
+            var postWithAuthors = db.Posts.Include(p => p.Author).ToList();
+            return View(postWithAuthors);
         }
 
         // GET: Posts/Details/5
@@ -48,10 +50,13 @@ namespace LandmarksBlog.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Body,Date")] Post post)
+        public ActionResult Create([Bind(Include = "Id,Title,Body")] Post post)
         {
             if (ModelState.IsValid)
             {
+                post.Author = db.Users
+                    .FirstOrDefault(u => u.UserName == User.Identity.Name);
+                post.Date = DateTime.Now;
                 db.Posts.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -73,6 +78,8 @@ namespace LandmarksBlog.Controllers
             {
                 return HttpNotFound();
             }
+            var authors = db.Users.ToList();
+            ViewBag.Author = authors;
             return View(post);
         }
 
@@ -83,7 +90,7 @@ namespace LandmarksBlog.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
 
-        public ActionResult Edit([Bind(Include = "Id,Title,Body,Date")] Post post)
+        public ActionResult Edit([Bind(Include = "Id,Title,Body,Date, Author_Id")] Post post)
         {
             if (ModelState.IsValid)
             {

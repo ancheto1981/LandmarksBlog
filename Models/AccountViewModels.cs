@@ -49,6 +49,10 @@ namespace LandmarksBlog.Models
     public class LoginViewModel
     {
         [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
@@ -65,10 +69,13 @@ namespace LandmarksBlog.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
-
         [Required]
         [Display(Name = "FullName")]
         public string FullName { get; set; }
