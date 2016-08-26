@@ -1,5 +1,9 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin;
 using Owin;
+using System;
+using System.Threading.Tasks;
 
 [assembly: OwinStartupAttribute(typeof(LandmarksBlog.Startup))]
 namespace LandmarksBlog

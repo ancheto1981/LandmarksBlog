@@ -8,7 +8,7 @@ namespace LandmarksBlog.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using LandmarksBlog.Models;
+
 
     public sealed class DbMigrationConfig : DbMigrationsConfiguration<LandmarksBlog.Models.ApplicationDbContext>
     {
@@ -34,16 +34,19 @@ namespace LandmarksBlog.Migrations
             //    );
             //
 
-            if (!context.Users.Any())
+            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            string[] roleNames = { "Admin", "Visitor" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
             {
-                var adminEmail = "neli@neli.com";
-                var adminUserName = "neli";
-                var adminFullName = "Neli Neli";
-                var adminPassword = "123";
-                string adminRole = "Administrator";
-                CreateAdminUser(context, adminEmail, adminUserName, adminFullName, adminPassword, adminRole);
-                CreateSeveralEvents(context);
+                if (!RoleManager.RoleExists(roleName))
+                {
+                    roleResult = RoleManager.Create(new IdentityRole(roleName));
+                }
             }
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            UserManager.AddToRole("2881c262-27a1-4701-a106-7a23e416297a", "Admin");
         }
 
         private void CreateSeveralEvents(ApplicationDbContext context)
