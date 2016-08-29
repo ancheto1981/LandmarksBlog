@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data;
+using System.IO;
 
 namespace LandmarksBlog.Models
 {
@@ -20,5 +22,6 @@ namespace LandmarksBlog.Models
         {
             return new ApplicationDbContext();
         }
+
     }
 }

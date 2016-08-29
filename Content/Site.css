@@ -26,3 +26,10 @@ textarea {
 .alert {
     margin-top: 20px;
 }
+
+textarea {
+    overflow:auto;
+}
+dd, dt {
+    padding: 5px;
+}

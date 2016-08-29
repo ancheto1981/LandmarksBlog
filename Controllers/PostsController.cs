@@ -60,8 +60,12 @@ namespace LandmarksBlog.Controllers
                 post.Date = DateTime.Now;
                 db.Posts.Add(post);
                 db.SaveChanges();
-                this.AddNotification("Post created.", NotificationType.INFO);
+                this.AddNotification("Post created.", NotificationType.SUCCESS);
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                this.AddNotification("Post not found.", NotificationType.ERROR);
             }
 
             return View(post);
@@ -92,12 +96,13 @@ namespace LandmarksBlog.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
 
-        public ActionResult Edit([Bind(Include = "Id,Title,Body, Author_Id")] Post post)
+        public ActionResult Edit([Bind(Include = "Id,Title,Body, AuthorId")] Post post)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
+                this.AddNotification("Post edited.", NotificationType.INFO);
                 return RedirectToAction("Index");
             }
             return View(post);
@@ -130,6 +135,7 @@ namespace LandmarksBlog.Controllers
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
+            this.AddNotification("Post deleted.", NotificationType.WARNING);
             return RedirectToAction("Index");
         }
 
@@ -141,5 +147,7 @@ namespace LandmarksBlog.Controllers
             }
             base.Dispose(disposing);
         }
+
+       
     }
 }

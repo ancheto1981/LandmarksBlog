@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Pictures";
+}
+
+<h2>Pictures</h2>
+<div>
+    <ul class="bxslider">
+        <li><img src="~/images/belogradchishkiskali.jpg" /></li>
+        <li><img src="~/images/chudnitemostove.jpg" /></li>
+        <li><img src="~/images/dqvolskotogyrlo.jpg" /></li>
+        <li><img src="~/images/gluhitekamyni.jpg" /></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.bxslider').bxSlider({
+            mode: 'fade',
+            captions: true,
+            pagerCustom: '#bx-pager',
+            adaptiveHeight: true,
+            slideWidth: 550
+        });
+    });
+</script>
