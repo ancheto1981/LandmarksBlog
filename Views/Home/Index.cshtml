@@ -4,11 +4,22 @@
     ViewBag.Title = "Landmarks";
 }
 
-<div class="jumbotron">
+<div>
     <h1>Landmarks of Bulgaria</h1>
     <p class="lead">This is a blog about Landmarks of Bulgaria.</p>
 </div>
 
+<aside>
+    <h2>Resent Post</h2>
+    <section class="row">
+        @foreach (var post in Model)
+        {
+            <article class="post col-md-6">
+                <a href="~/Posts">@post.Title</a>
+            </article>
+        }
+    </section>
+</aside>
 
 @{
     ViewBag.Title = "Home";
