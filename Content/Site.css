@@ -33,3 +33,11 @@ textarea {
 dd, dt {
     padding: 5px;
 }
+aside {
+  background-color:#DDD;
+  float:right;
+  display: inline-block;
+  width: 25%;
+  height: 200px;
+
+}
