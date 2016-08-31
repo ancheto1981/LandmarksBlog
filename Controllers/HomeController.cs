@@ -19,13 +19,15 @@ namespace LandmarksBlog.Controllers
 
             var posts = db.Posts.Include(p => p.Author)
                 .OrderByDescending(p => p.Date)
-                .Take(3);
+                .Take(4);
 
             return View(posts.ToList());
         }
 
         public ActionResult Pictures(HttpPostedFileBase file)
         {
+            List<string> items = (List<string>)this.Session["items"] ?? new List<string>();
+
             if (file != null && file.ContentLength > 0)
                 try
                 {
@@ -42,7 +44,31 @@ namespace LandmarksBlog.Controllers
             {
                 ViewBag.Message = "You have not specified a file.";
             }
-            return View();
+            return View(items);
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+
+        public ActionResult AddItem(string newItem)
+        {
+            List<string> items = (List<string>)this.Session["items"] ?? new List<string>();
+            items.Add(newItem);
+            this.Session["items"] = items;
+
+            return RedirectToAction("Pictures");
+        }
+
+        [Authorize(Roles ="Admin")]
+       
+        public ActionResult RemoveItem(int index)
+        {
+            List<string> items = (List<string>)this.Session["items"];
+
+            if (items != null && index < items.Count)
+            {
+                items.RemoveAt(index);this.Session["items"] = items;
+            }
+            return this.RedirectToAction("Pictures");
         }
     }
 }

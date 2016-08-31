@@ -8,7 +8,7 @@ namespace LandmarksBlog.Models
 {
     public class Comment
     {
-        public Comment()
+        public Comment(Comment comment)
         {
             this.Date = DateTime.Now;
         }
